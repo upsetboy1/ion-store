@@ -1,0 +1,51 @@
+<ion-content padding-top>
+	<ion-list no-padding padding-left no-lines margin-bottom margin-top>
+		<ion-item no-padding (click)="goProfile()" *ngIf="_user.all">
+			<h1>{{_user.displayname ? _user.displayname : (_user.firstname+' '+_user.lastname)}}</h1>
+			<p>{{ 'VIEW_EDIT_PROFILE' | translate}}</p>
+			<ion-avatar item-end>
+				<img src="assets/img/miscellaneous/user.png">
+			</ion-avatar>
+		</ion-item>
+		<ion-item no-padding (click)="login()" *ngIf="!_user.all">
+			<h1>{{ 'LOGIN/REGISTER' | translate}}</h1>
+			<p>{{ 'LOGIN_DESC' | translate}}</p>
+			<ion-avatar item-end>
+				<img src="assets/img/miscellaneous/user.png">
+			</ion-avatar>
+		</ion-item>
+	</ion-list>
+	<ion-list class="account-list">
+		<!-- <ion-item mode="ios" tappable (click)="goTo('AccountChatsPage')">
+			Chats
+			<ion-badge>3</ion-badge>
+			<ion-icon name="fa-paypal" item-end></ion-icon>
+		</ion-item> -->
+		<button ion-item tappable (click)="goTo('AccountNotificationPage')">
+			{{ 'NOTIFICATIONS' | translate}}
+			<ion-badge item-end *ngIf="_notif.all.length > 0">{{_notif.all.length}}</ion-badge>
+		</button>
+
+		<button ion-item tappable (click)="goTo('SavedAddressPage')">
+			{{ 'SAVED_ADDRESS' | translate}}
+			<ion-badge item-end *ngIf="_address.all.length > 0">{{_address.all.length}}</ion-badge>
+		</button>
+
+		<button ion-item tappable (click)="goTo('AccountSettingsPage')">
+			{{ 'SETTINGS' | translate}}
+		</button>
+
+		<button ion-item tappable (click)="goTo('AccountHelpPage')">
+			{{ 'FAQ' | translate}}
+		</button>
+
+		<button ion-item tappable (click)="emailUs()">
+			{{ 'CONTACT' | translate}}
+		</button>
+
+		<button ion-item tappable (click)="rateUs()">
+			{{ 'GIVE_FEEDBACK' | translate}}
+		</button>
+
+	</ion-list>
+</ion-content>

@@ -1,0 +1,77 @@
+page-product { 
+	// .header-image {
+	// 	background-image: url(https://ununsplash.imgix.net/photo-1421091242698-34f6ad7fc088?fit=crop&fm=jpg&h=650&q=75&w=950);
+	// 	height: 40vh;
+	// }
+	ion-content, .scroll-content{
+		padding-top: 0px !important;
+	}
+	.main-content {
+		background-color: white;
+		.button[icon-only] ion-icon{
+			padding: 0px;
+		}
+	}
+
+	.list-header{
+		font-size: 1.6rem;
+		font-weight: bold;
+	}
+
+	ion-slides.featured{
+		height: 400px;
+		height: 70vh;
+	}
+
+	p, ion-col{
+		color: #484848;
+		white-space: normal;
+		font-size: 1.4rem;
+	}
+
+	.specs ion-item ion-col{
+		text-transform: capitalize;
+	}
+	.specs ion-item ion-col span:after{
+		content: ',';
+	}
+	.specs ion-item ion-col span:last-child:after{
+		content: '';
+	}
+	.specs ion-row{
+		margin-bottom: 8px;
+	}
+	.specs ion-row:last-child{
+		margin: 0px;
+	}
+
+	.item-radio:last-child .item-inner{
+		border-bottom: none !important;
+	}
+
+	.item-radio ion-label span:after{
+		content: '|';
+	}
+	.item-radio ion-label span:last-child:after{
+		content: '';
+	}
+	h2{
+		font-size: 2rem !important;
+	}
+	h2, h3, h5, ion-list-header ion-label{
+		color: #484848;
+		font-weight: bold !important;
+	}
+	ion-footer ion-rating ion-icon:before{
+		font-size: 1.4rem !important;
+	}
+	ion-footer ion-row.reviews > ion-col:last-child{
+		font-size: 1rem;
+		line-height: 18px;
+	}
+
+	ion-footer .toolbar-ios:last-child{
+		padding-bottom: 5px !important;
+	}
+
+}

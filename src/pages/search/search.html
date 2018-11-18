@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-navbar >
+			<div class="newsearch">
+				<div no-padding class="searchbar searchbar-md">
+					<div class="searchbar-input-container">
+						<button ion-button icon-left icon-only clear tappable (click)="dismiss()"><ion-icon name="arrow-back"></ion-icon></button>
+						<form [formGroup]="search" (ngSubmit)="submit()" novalidate>      
+							<ion-input formControlName="search" class="searchbar-input" placeholder="{{ 'SEARCH' | translate }}" type="search"></ion-input>
+							<button type="reset" *ngIf="(search.controls['search'].value)" tappable (click)="reset(currForm)" ion-button icon-right icon-only clear><ion-icon name="close"></ion-icon></button>
+						</form>
+					</div>
+				</div>
+			</div>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+	<!-- <ion-list no-lines>
+	  <ion-list-header no-margin>
+	    Search History
+		<button item-end ion-button clear icon-start>
+			<ion-icon name="trash"></ion-icon>
+			CLEAR
+		</button>
+	  </ion-list-header>
+	  <ion-item><h5>White x Black</h5></ion-item>
+	  <ion-item><h5>New Look Faux</h5></ion-item>
+	  <ion-item><h5>Maiami Lather Bag</h5></ion-item>
+	</ion-list> -->
+	<ion-list no-lines>
+			<ion-list-header no-margin>
+				{{ 'CATEGORIES' | translate }}
+			</ion-list-header>
+			<ion-list no-padding class="accordion-list">
+					<div *ngFor="let item of categories; let i = index">
+						<ion-item tappable (click)="toggleSection(i)" [ngClass]="{'active':item.open, 'section': item.open}">
+								<h2>{{ item.name }}</h2>
+								<ion-icon name="add" item-end></ion-icon>
+						</ion-item>
+						<ion-list [class.active]="item.open" class="sub-accordion" no-margin no-padding padding-left no-lines *ngIf="item.child && item.open">
+								<button ion-item no-lines *ngFor="let child of item.child; let j = index" tappable (click)="goTo('ProductGridPage', child)"> 
+									<h3>{{child.name}}</h3>
+									<ion-badge item-end color="secondary">{{child.count}}</ion-badge>
+								</button>
+						</ion-list>
+					</div>
+			</ion-list>
+	</ion-list>
+	<ion-list no-lines *ngIf="history.all.length > 0">
+	  <ion-list-header no-margin>
+	    {{ 'HISTORY' | translate }}
+	    <button item-end ion-button clear icon-start tappable (click)="resetHistory()">
+				<ion-icon name="trash"></ion-icon>
+				{{ 'CLEAR' | translate }}
+			</button>
+		</ion-list-header>
+		<ion-item *ngFor="let x of history.all" tappable (click)="goTo('ProductPage', x)">
+			<ion-thumbnail item-start>
+				<div class="img" [ngStyle]="{'background-image': 'url(' + x.images[0].src +')'}"></div>
+			</ion-thumbnail>
+			<h3>{{x.name}}</h3>
+			<p><span class="price">{{x.price | money}}</span></p>
+		</ion-item>
+	</ion-list>
+</ion-content>

@@ -1,0 +1,11 @@
+ion-rating {
+	display: inline-block;
+	margin-right: 3px;
+	fa-icon{
+		color: color($colors, secondary);
+		font-size: 1.2em;
+	}
+	fa-icon:before{
+		font-size: 1rem !important;
+	}
+}

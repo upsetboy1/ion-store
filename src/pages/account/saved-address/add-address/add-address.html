@@ -1,0 +1,67 @@
+<ion-header no-border no-lines>
+    <ion-navbar start>
+      <ion-buttons start>
+        <button start color="primary" start icon-only ion-button (click)="dismiss()">
+            <ion-icon name="close"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" novalidate>  
+  <ion-list>
+      <h1 margin-left margin-bottom>{{data.action==2 ? ('EDIT' | translate) : ('ADD' | translate)}} {{ 'ADDRESS' | translate}}</h1>
+      <ion-item>
+          <ion-input formControlName="first_name" type="text" placeholder="{{ 'FIRST_NAME' | translate}}" required></ion-input>
+        </ion-item>
+    
+        <ion-item>
+          <ion-input formControlName="last_name" type="text" placeholder="{{ 'LAST_NAME' | translate}}"></ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="!user.all">
+          <ion-input formControlName="email" type="email" placeholder="{{ 'EMAIL' | translate}}"></ion-input>
+        </ion-item>
+    
+        <ion-item>
+          <ion-input formControlName="phone" type="number" inputmode="numeric" pattern="[0-9]*"placeholder="{{ 'PHONE' | translate}}" required></ion-input>
+        </ion-item>
+        
+        <ion-item>
+            <ion-label>{{ 'COUNTRY' | translate}}</ion-label>
+            <ion-select formControlName="country" [selectOptions]="countryOpts" placeholder="{{ 'SELECT' | translate}} {{ 'COUNTRY' | translate}}" cancelText="{{ 'CANCEL' | translate}}" okText="{{ 'SELECT' | translate}}" required (ionChange)="getStates()">
+              <ion-option *ngFor="let x of countries" [value]="x.id" [innerHTML]="x.name"></ion-option>
+            </ion-select>
+        </ion-item>
+
+        <ion-item *ngIf="states.length > 0 || this.data.state">
+            <ion-label>{{ 'STATE' | translate}}</ion-label>
+            <ion-select formControlName="state" [selectOptions]="stateOpts" placeholder="{{ 'SELECT' | translate}} {{ 'STATE' | translate}}" cancelText="{{ 'CANCEL' | translate}}" okText="{{ 'SELECT' | translate}}" required>
+              <ion-option *ngFor="let x of states" [value]="x.id" [innerHTML]="x.name"></ion-option>
+            </ion-select>
+        </ion-item>
+        
+        <ion-item *ngIf="states.length == 0">
+          <ion-input formControlName="state" type="text" placeholder="{{ 'STATE' | translate}}" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input formControlName="city" type="text" placeholder="{{ 'CITY' | translate}}" required></ion-input>
+        </ion-item>
+    
+        <ion-item>
+          <ion-input formControlName="postcode" type="number" inputmode="numeric" pattern="[0-9]*" placeholder="{{ 'POSTCODE' | translate}}" required></ion-input>
+        </ion-item>
+    
+        <ion-item>
+          <ion-textarea formControlName="address_1" name="description" placeholder="{{ 'ADDRESS' | translate}}" required></ion-textarea>
+        </ion-item>
+
+        <div padding>
+          <button ion-button block [disabled]="!form.valid">{{ 'SAVE' | translate}}</button>
+        </div>
+  </ion-list>
+  </form>
+</ion-content>

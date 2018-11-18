@@ -1,0 +1,87 @@
+<ion-header>
+	<ion-navbar hideBackButton="true">
+      <div class="newsearch">
+        <div no-padding class="searchbar searchbar-md">
+          <div class="searchbar-input-container">
+            <button ion-button icon-left icon-only clear tappable (click)="backToRoot()"><ion-icon name="arrow-back"></ion-icon></button>
+            <form [formGroup]="search" (ngSubmit)="submit()" novalidate>
+              <ion-input formControlName="name" class="searchbar-input" placeholder="{{ 'SEARCH' | translate }}" type="search"></ion-input>
+              <button type="reset" *ngIf="(search.controls['name'].value)" tappable (click)="reset(currForm)" ion-button icon-right icon-only clear><ion-icon name="close"></ion-icon></button>
+            </form>
+          </div>
+        </div>
+        <div class="filter">
+            <ion-scroll scrollX="true" class="item filter">
+              <ion-row nowrap>
+                <ion-col col-auto no-padding>
+                  <button ion-button small round outline (click)="showCategory()">{{param.name || ('CATEGORIES' | translate)}}</button>
+                </ion-col>
+                <ion-col col-auto no-padding *ngFor="let x of attributes">
+                  <button ion-button small round outline (click)="showFilter(x)">
+                    {{x.name}} 
+                    <span *ngIf="param.attribute_term && param.attribute==x.slug">&nbsp;•&nbsp;{{param.attribute_term.split(",").length}}</span>
+                  </button>
+                </ion-col>
+                <ion-col col-auto no-padding>
+                  <button ion-button small round outline (click)="showSort()">Sort</button>
+                </ion-col>
+              </ion-row>
+            </ion-scroll>
+        </div>
+      </div>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-scroll scrollX="true" class="item category-slide" *ngIf="subcategory && subcategory.length>0">
+    <ion-row nowrap padding-left padding-top>
+      <ion-col col-auto no-padding *ngFor="let x of subcategory; let i=index">
+        <div class="img" [ngStyle]="{'background-image': 'url(' + x.image.src +')'}" (click)="goTo('ProductGridPage', x)">
+          <div class="fade"></div>
+          <h5>{{x.name}}</h5>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-scroll>
+
+  <ion-row padding-left padding-right padding-top class="product-grid">
+    <ion-grid class="empty" *ngIf="products.length == 0">
+			<ion-row align-items-center>
+				<ion-col align-self-center text-center>
+					<ion-icon name="basket" color="secondary"></ion-icon>
+					<h4 margin-bottom>{{ 'EMPTY' | translate}}</h4>
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+    <ion-col col-6 *ngFor="let x of products">
+      <div>
+      <button class="fav" (click)="setFav(x)"  ion-button clear icon-only>
+        <ion-icon *ngIf="x.variations.length == 0" no-padding name="heart{{!wishlist.isFav(x) ? '-outline' : ''}}"></ion-icon>
+      </button>
+      <div text-left class="product-item" (click)="goTo('ProductPage', x)">
+        <div class="img" [ngStyle]="{'background-image': 'url(' + x.images[0].src +')'}">
+          <ion-badge *ngIf="x.on_sale">{{x | discount}}</ion-badge>
+        </div>
+        <h5 [innerHTML]="x.name"></h5>
+        <div class="price">
+            <span class="disc" *ngIf="x.on_sale">{{x.regular_price | money}}</span> 
+            {{x.price | money}}
+        </div>
+        <ion-row no-padding class="reviews" *ngIf="x.rating_count">
+          <ion-col col-auto no-padding>
+            <ion-rating *ngIf="x.average_rating" item-start
+              [numStars]="5"
+              [readOnly]="true"
+              [value]="x.average_rating">
+            </ion-rating>
+            <span *ngIf="x.rating_count">{{x.rating_count}}</span>
+          </ion-col>
+        </ion-row>
+      </div>
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-infinite-scroll *ngIf="more" (ionInfinite)="loadMoreProducts($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

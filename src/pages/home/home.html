@@ -1,0 +1,126 @@
+<ion-header>  
+    <ion-navbar>
+        <div class="newsearch">
+          <div no-padding class="searchbar searchbar-md">
+            <div class="searchbar-input-container">
+              <button ion-button icon-left clear icon-only (click)="showSearch()"><ion-icon name="search" mode="ios"></ion-icon></button>
+              <!-- <input (click)="showSearch()" class="searchbar-input" placeholder="{{ 'SEARCH' | translate }}" value="{{App.store}}" type="search" autocomplete="off" autocorrect="off" spellcheck="false"> -->
+              <div class="searchbar-input" (click)="showSearch()">
+                  {{App.store}}
+              </div>
+            </div>
+          </div>
+        </div>
+    </ion-navbar>
+</ion-header>
+
+ <ion-content no-padding>
+
+      <ion-slides loop="true" autoplay="2000" pager>
+        <ion-slide *ngFor="let number of [1,2,3,4]">
+          <img src="assets/img/slides/slide{{number}}.jpg" />
+        </ion-slide>
+      </ion-slides>
+
+      <div class="">
+        <ion-list no-lines no-margin margin-left>
+          <ion-item no-padding no-lines>
+            {{ 'CATEGORIES' | translate }}
+            <button item-end ion-button clear icon-end tappable (click)="goTo('CategoriesPage')">
+                {{ 'SEE_ALL' | translate }}
+                <ion-icon name="arrow-forward"></ion-icon>
+              </button>
+          </ion-item>
+        </ion-list>
+
+        <ion-scroll scrollX="true" class="item category-slide">
+          <ion-row nowrap padding-left>
+            <ng-container *ngFor="let x of categories; let i=index">
+              <ion-col col-auto no-padding *ngIf="categories[i*2] || categories[i*2+1]">
+                <div *ngIf="categories[i*2]" class="img" [ngStyle]="{'background-image': 'url(' + categories[i*2].image.src +')'}" tappable (click)="goTo('ProductGridPage', categories[i*2])">
+                  <div class="fade"></div>
+                  <h5>{{categories[i*2].name}}</h5>
+                </div>
+                <div *ngIf="categories[i*2+1]" class="img" [ngStyle]="{'background-image': 'url(' + categories[i*2+1].image.src +')'}" tappable (click)="goTo('ProductGridPage', categories[i*2+1])">
+                  <div class="fade"></div>
+                  <h5>{{categories[i*2+1].name}}</h5>
+                </div>
+              </ion-col>
+            </ng-container>
+          </ion-row>
+        </ion-scroll>
+
+          <!-- <ion-row padding-left padding-right class="categories-grid">
+            <ion-col col-4 class="category-item" *ngFor="let x of tmp">
+              <div class="img" [ngStyle]="{'background-image': 'url(' + x.image.src +')'}" tappable (click)="goTo('ProductGridPage', x)">
+                <div class="fade"></div>
+                <h5>{{x.name}}</h5>
+              </div>
+            </ion-col>
+          </ion-row> -->
+      </div> 
+
+      <div class="product-slide" *ngFor="let x of data">
+        <ion-list no-lines no-margin margin-left>
+          <ion-item no-padding>
+            {{x[0].categories[0].name}}
+            <button item-end ion-button clear icon-end tappable (click)="goTo('ProductGridPage', x[0].categories[0])">
+              {{ 'SEE_ALL' | translate }}
+                <ion-icon name="arrow-forward"></ion-icon>
+              </button>
+          </ion-item>
+        </ion-list>
+
+        <ion-slides margin-bottom spaceBetween="10" slidesPerView="2.5">
+          <ion-slide *ngFor="let y of x">
+            <button class="fav" tappable (click)="setFav(y)" ion-button clear icon-only>
+              <ion-icon *ngIf="y.variations.length == 0" no-padding name="heart{{!wishlist.isFav(y) ? '-outline' : ''}}"></ion-icon>
+            </button>
+            <div text-left class="product-item" tappable (click)="goTo('ProductPage', y)">
+              <div class="img" [ngStyle]="{'background-image': 'url(' + y.images[0].src +')'}">
+                <ion-badge *ngIf="y.on_sale">{{y | discount}}</ion-badge>
+              </div>
+              <h5 [innerHTML]="y.name"></h5>
+              <div class="price">
+                  <span class="disc" *ngIf="y.on_sale">{{y.regular_price | money:app}}</span> 
+                  {{y.price | money:app}}
+              </div>
+              <ion-row no-padding class="reviews" *ngIf="y.rating_count">
+                <ion-col col-auto no-padding>
+                  <ion-rating *ngIf="y.average_rating" item-start
+                    [numStars]="5"
+                    [readOnly]="true"
+                    [value]="y.average_rating">
+                  </ion-rating>
+                  <span *ngIf="y.rating_count">{{y.rating_count}}</span>
+                </ion-col>
+              </ion-row>
+            </div>
+          </ion-slide>
+        </ion-slides>
+        <!-- <ion-row padding-left padding-right class="product-grid">
+          <ion-col col-6 class="product-item" *ngFor="let x of products" tappable (click)="goTo('ProductPage', x)">
+            <div class="img" [ngStyle]="{'background-image': 'url(' + x.img +')'}">
+              <ion-icon class="fav" name="heart{{!x.isFav ? '-outline' : ''}}"></ion-icon>
+              <ion-badge *ngIf="x.disc">{{x.disc}}% OFF</ion-badge>
+            </div>
+            <h5>{{x.title}}</h5>
+            <div class="price">
+                <span class="disc" *ngIf="x.on_sale">{{x.regular_price | currency:'USD':true:'1.2-2'}}</span> 
+                {{x.price | currency:'USD':true:'1.2-2'}}
+            </div>
+            <ion-row no-padding class="reviews">
+              <ion-col col-6 no-padding>
+                <ion-rating item-start
+                  [numStars]="5"
+                  [readOnly]="true"
+                  [value]="x.rating">
+                </ion-rating>
+              </ion-col>
+              <ion-col no-padding text-center *ngIf="x.reviews">{{x.reviews}} Reviews</ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row> -->
+      </div>
+
+</ion-content>

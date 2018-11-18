@@ -1,0 +1,23 @@
+<ion-header no-border no-lines>
+  <ion-navbar>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-list class="accordion-list">
+        <h1 margin-left margin-bottom>{{ 'CATEGORIES' | translate}}</h1>
+        <div *ngFor="let item of categories; let i = index">
+          <ion-item tappable (click)="toggleSection(i)" [ngClass]="{'active':item.open, 'section': item.open}">
+              <h2>{{ item.name }}</h2>
+              <ion-icon name="add" item-end></ion-icon>
+          </ion-item>
+
+          <ion-list [class.active]="item.open" class="sub-accordion" no-margin no-padding padding-left no-lines *ngIf="item.child && item.open">
+              <button ion-item no-lines *ngFor="let child of item.child; let j = index" tappable (click)="goTo('ProductGridPage', child)"> 
+                <h3>{{child.name}}</h3>
+                <ion-badge item-end color="secondary">{{child.count}}</ion-badge>
+              </button>
+          </ion-list>
+        </div>
+    </ion-list>
+</ion-content>

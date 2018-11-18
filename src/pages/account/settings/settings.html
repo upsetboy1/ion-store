@@ -1,0 +1,24 @@
+
+<ion-header no-border no-lines>
+	<ion-navbar></ion-navbar>
+</ion-header>
+<ion-content fullscreen no-padding>
+	<ion-list class="account-list" no-padding>
+		<h1 margin-left margin-bottom>{{ 'SETTINGS' | translate}}</h1>
+		<!-- <button ion-item mode="ios" (click)="goTo('AccountSettingsNotificationsPage')">
+			Notifications
+		</button> -->
+		<button ion-item mode="ios" (click)="goTo('AccountSettingsLanguagesPage')">
+			{{ 'LANGUAGES' | translate}}
+		</button>
+		<ion-item mode="ios" (click)="goTo('AccountSettingsTosPage')">
+			{{ 'TOS' | translate}}
+		</ion-item>
+		<ion-item *ngIf="app.version">
+			Version {{app.version}}
+		</ion-item>
+		<ion-item ion-item *ngIf="user.all" (click)="logout()">
+			{{ 'LOGOUT' | translate}}
+		</ion-item>
+	</ion-list>
+</ion-content>

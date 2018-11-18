@@ -1,0 +1,21 @@
+page-thanks {
+    .toolbar-background,
+    ion-navbar,
+    ion-header {
+      background: transparent !important;
+      background-color: transparent !important;
+      border: none !important;
+    }
+    page-thanks ion-icon:before {
+        font-size: 2em !important;
+        color: #de5b7e;
+    }
+    h4{
+        color: greenyellow;
+        text-transform: uppercase;
+    }
+
+    h6{
+        text-transform: uppercase;
+    }
+}

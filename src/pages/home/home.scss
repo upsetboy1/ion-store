@@ -1,0 +1,45 @@
+page-home {
+	.fade{
+		border-radius: 2px;
+	}
+	.newsearch .searchbar .searchbar-input{
+		color: color($colors, primary) !important;
+		letter-spacing: 1px;
+		font-weight: bold;
+	}
+
+	.category-slide{
+		height: 190px;
+	}
+
+	ion-slides:first-child{
+		height: 130px;
+	}
+
+	ion-navbar .toolbar-background, .toolbar-background{
+		background: color($colors, primary) !important;
+		border: none !important;
+		color: white;
+	}
+
+	.segment-md .segment-button.activated, .segment-md .segment-button.segment-activated{
+		border-color: white;
+	}
+
+	.segment-md .segment-button{
+		color: white;
+	}
+
+	.toolbar .segment-md{
+		padding: 0 16px;
+	}
+
+	.searchbar-input{
+		background: white !important;
+	}
+	
+	.list .item.item-block .item-inner{
+		border: none;
+	}
+
+}

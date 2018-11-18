@@ -1,0 +1,155 @@
+<ion-header>
+    <ion-navbar>
+      <ion-title>{{ 'ORDER' | translate }} #{{data.id}}</ion-title>
+   </ion-navbar>
+   <ion-toolbar no-padding>
+        <ion-segment [(ngModel)]="order">
+          <ion-segment-button value="detail">
+            {{ 'DETAIL' | translate }}
+          </ion-segment-button>
+          <ion-segment-button value="billing">
+            {{ 'BILLING' | translate }}
+          </ion-segment-button>
+          <ion-segment-button value="shipping">
+            {{ 'SHIPPING' | translate }}
+          </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div [ngSwitch]="order">
+    <div *ngSwitchCase="'detail'">
+      <ion-list>
+        <ion-list-header no-margin no-lines>
+          {{ 'PRODUCTS' | translate }}
+        </ion-list-header>
+        <ion-item *ngFor="let x of data.line_items">
+          <ion-thumbnail item-start>
+            <div class="img" [ngStyle]="{'background-image': 'url(' + x.img +')'}"></div>
+          </ion-thumbnail>
+          <h3 [innerHTML]="x.name"></h3>
+          <p><span class="price">{{x.price | currency:'USD':true:'1.2-2'}}</span> • {{x.quantity}}x</p>
+        </ion-item>
+        <ion-list-header no-margin margin-top no-lines>
+          {{ 'PAYMENT' | translate }}
+        </ion-list-header>
+        <ion-item>
+          {{data.payment_method_title}}
+        </ion-item>
+        <ion-list-header no-margin no-lines *ngIf="data.shipping_lines[0]">
+          {{ 'SHIPPING' | translate }}
+        </ion-list-header>
+        <ion-item *ngIf="data.shipping_lines[0]">
+          {{data.shipping_lines[0].method_title}}
+        </ion-item>
+        <ion-list-header no-margin no-lines>
+          <b>Total</b>
+        </ion-list-header>
+        <ion-item *ngIf="data.shipping_lines[0]">
+          {{ 'SHIPPING' | translate }} ({{data.shipping_lines[0].method_title}}) <span item-end>{{data.shipping_lines[0].total | money}}</span>
+        </ion-item>
+        <ion-item *ngIf="data.coupon_lines[0]">
+          {{ 'COUPON' | translate }} <span item-end>{{data.coupon_lines[0].discount}}</span>
+        </ion-item>
+        <ion-item>
+          Total <span item-end>{{data.total | money}}</span>
+        </ion-item>
+      </ion-list>
+    </div>
+
+    <div *ngSwitchCase="'billing'">
+      <ion-list>
+        <ion-list-header no-margin no-lines>
+          {{ 'NAME' | translate }}
+        </ion-list-header>
+        <ion-item>
+          {{data.billing.first_name}} {{data.billing.last_name}}
+        </ion-item>
+        <ion-list-header no-margin no-lines>
+          {{ 'PHONE' | translate }}
+        </ion-list-header>
+        <ion-item>
+          {{data.billing.phone}}
+        </ion-item>
+        <ion-list-header no-margin no-lines>
+          Email
+        </ion-list-header>
+        <ion-item>
+          {{data.billing.email}}
+        </ion-item>
+        <ion-list-header no-margin no-lines>
+          {{ 'CITY' | translate }}
+        </ion-list-header>
+        <ion-item>
+          {{data.billing.city}}
+        </ion-item>
+        <ion-list-header no-margin no-lines>
+          {{ 'STATE' | translate }}
+        </ion-list-header>
+        <ion-item>
+          {{data.billing.state}}
+        </ion-item>
+        <ion-list-header no-margin no-lines>
+          {{ 'COUNTRY' | translate }}
+        </ion-list-header>
+        <ion-item>
+          {{data.billing.country}}
+        </ion-item>
+        <ion-list-header no-margin no-lines>
+          {{ 'ADDRESS' | translate }}
+        </ion-list-header>
+        <ion-item>
+          {{data.billing.address_1}}
+        </ion-item>
+        <ion-list-header no-margin no-lines>
+          {{ 'POSTCODE' | translate }}
+        </ion-list-header>
+        <ion-item>
+          {{data.billing.postcode}}
+        </ion-item>
+      </ion-list>
+    </div>
+
+    <div *ngSwitchCase="'shipping'">
+      <ion-list>
+        <ion-list-header no-margin no-lines>
+          {{ 'NAME' | translate }}
+        </ion-list-header>
+        <ion-item>
+          {{data.shipping.first_name}} {{data.shipping.last_name}}
+        </ion-item>
+        <ion-list-header no-margin no-lines>
+          {{ 'CITY' | translate }}
+        </ion-list-header>
+        <ion-item>
+          {{data.shipping.city}}
+        </ion-item>
+        <ion-list-header no-margin no-lines>
+          {{ 'STATE' | translate }}
+        </ion-list-header>
+        <ion-item>
+          {{data.shipping.state}}
+        </ion-item>
+        <ion-list-header no-margin no-lines>
+          {{ 'COUNTRY' | translate }}
+        </ion-list-header>
+        <ion-item>
+          {{data.shipping.country}}
+        </ion-item>
+        <ion-list-header no-margin no-lines>
+          {{ 'ADDRESS' | translate }}
+        </ion-list-header>
+        <ion-item>
+          {{data.shipping.address_1}}
+        </ion-item>
+        <ion-list-header no-margin no-lines>
+          {{ 'POSTCODE' | translate }}
+        </ion-list-header>
+        <ion-item>
+          {{data.shipping.postcode}}
+        </ion-item>
+      </ion-list>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,48 @@
+<ion-header no-border no-lines>
+  <ion-navbar>
+      <ion-buttons start *ngIf="action==3 || action==4">
+        <button color="primary" start icon-only ion-button (click)="dismiss()">
+          <ion-icon name="close"></ion-icon>
+        </button>
+      </ion-buttons>
+      <ion-buttons end>
+        <button color="primary" small ion-button (click)="addNew()">
+            {{ 'ADD' | translate}}
+        </button>
+      </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+      <h1 margin-left margin-bottom>{{title}}</h1>
+      <ion-grid class="empty" *ngIf="address.length == 0">
+        <ion-row align-items-center>
+          <ion-col align-self-center text-center>
+            <ion-icon name="list" color="secondary"></ion-icon>
+            <h4 margin-bottom>{{ 'NO_ADDRESS' | translate}}</h4>
+            <button color="secondary" ion-button outline (click)="addNew()">{{ 'ADD' | translate}} {{ 'NEW_ADDRESS' | translate}}</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-item-sliding *ngFor="let x of address.all; let i = index" #item>
+        <ion-item (click)="editAddress(x, i, action)">
+          <h3>{{x.first_name}} • {{x.phone}}</h3>
+          <p>{{x.city}} - {{x.state}}</p>
+          <p>{{x.address_1}}</p>
+          <p>{{x.country}}</p>
+          <ion-badge item-end *ngIf="x.primary">{{ 'PRIMARY' | translate}}</ion-badge>
+        </ion-item>
+        <ion-item-options side="right" *ngIf="!x.primary">
+          <button small ion-button color="assertive"  (click)="remove(i, item)">
+            <ion-icon name="fa-trash-o"></ion-icon>
+            {{ 'REMOVE' | translate}}
+          </button>
+          <button small ion-button color="secondary" (click)="setPrimary(i, item)">
+            <ion-icon name="fa-star"></ion-icon>
+            {{ 'SET_PRIMARY' | translate}}
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+</ion-content>

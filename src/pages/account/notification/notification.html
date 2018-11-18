@@ -1,0 +1,33 @@
+<ion-header no-border no-lines>
+	<ion-navbar></ion-navbar>
+</ion-header>
+ 
+ <ion-content> 
+   <ion-list>
+    <h1 margin-left margin-bottom>{{ 'NOTIF' | translate}}</h1>
+    <ion-grid class="empty" *ngIf="notif.length == 0">
+			<ion-row align-items-center>
+				<ion-col align-self-center text-center>
+					<ion-icon name="notifications-off" color="secondary"></ion-icon>
+					<h4 margin-bottom>{{ 'EMPTY_NOTIF' | translate}}</h4>
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+    <ion-item-sliding *ngFor="let x of notif">
+      <ion-item (click)="showAlert(x)">
+        <ion-avatar item-start *ngIf="x.img">
+          <img [src]="x.img" />
+        </ion-avatar>
+        <h3>{{x.title}}</h3>
+        <p>{{x.body}}</p>
+      </ion-item>
+      <ion-item-options side="right">
+        <button ion-button small color="assertive" tappable (click)="remove(x)">
+					<ion-icon name="trash"></ion-icon>
+					{{'REMOVE' | translate}}
+				</button>
+      </ion-item-options>
+    </ion-item-sliding>
+   </ion-list>
+ </ion-content>
+ 

@@ -1,0 +1,67 @@
+<ion-content padding-top>
+	<div class="subtitle" *ngIf="cart.total > 0">
+		<h1 margin-top margin-horizontal>{{ 'CART' | translate}}</h1>
+		<p no-margin margin-horizontal>{{ 'CART_DESC' | translate: {value: cart.totalQtyDetail} }}</p>
+	</div>
+	<ion-list no-padding>
+		<ion-grid class="empty" *ngIf="cart.total == 0">
+			<ion-row align-items-center>
+				<ion-col align-self-center text-center>
+					<ion-icon name="basket" color="secondary"></ion-icon>
+					<h4 margin-bottom>{{ 'EMPTY' | translate}}</h4>
+					<button color="secondary" ion-button outline tappable (click)="goHome()">{{ 'START_SHOPPING' | translate}}</button>
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+  		<ion-item-sliding *ngFor="let x of products">
+  			<ion-item>
+				<ion-thumbnail item-start>
+					<div class="img" [ngStyle]="{'background-image': 'url(' + x.images[0].src +')'}"></div>
+				</ion-thumbnail>
+				<h3 [innerHTML]="x.name"></h3>
+				<p>
+					<span class="disc" *ngIf="x.on_sale">{{x.regular_price | money}} •</span> 
+					<span class="price">{{x.price | money}}</span>
+					<ng-container *ngIf="x.attributes.length > 0"><span *ngFor="let y of x.attributes">• <i>{{y.option || y.options[0]}}</i>&nbsp;</span></ng-container>
+					<span>• {{x.quantity}}x</span>
+				</p>
+				<div item-end>
+					<ion-row no-padding>
+						<ion-col no-padding text-center>
+							<button clear big ion-button icon-only tappable (click)="cart.post(x, 1); updateTotal()">
+								<ion-icon color="secondary" name="add-circle"></ion-icon>
+							</button>
+						</ion-col>
+					</ion-row>
+					<ion-row no-padding *ngIf="x.quantity > 1">
+						<ion-col no-padding text-center> 
+							<button small clear ion-button icon-only tappable (click)="cart.post(x, -1); updateTotal()">
+								<ion-icon color="secondary" name="remove-circle"></ion-icon>
+							</button>
+						</ion-col>
+					</ion-row>
+				</div>
+			</ion-item>
+			<ion-item-options side="right">
+				<button ion-button small color="assertive" tappable (click)="remove(x)">
+					<ion-icon name="trash"></ion-icon>
+					{{'REMOVE' | translate}}
+				</button>
+			</ion-item-options>
+  		</ion-item-sliding>
+  	</ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar padding-horizontal>
+    <ion-row align-items-center no-padding>
+    	<ion-col class="total" align-self-center no-padding *ngIf="products.length > 0">
+    		<span>Total ({{cart.totalQtyDetail}} items)</span>
+			<h5>{{total | money}}</h5>
+    	</ion-col>
+    	<ion-col col-33 align-self-center no-padding>
+			<button ion-button block tappable [disabled]="products.length <= 0" (click)="goCheckout()">{{'CHECKOUT' | translate}}</button>
+  		</ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

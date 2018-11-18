@@ -1,0 +1,18 @@
+<ion-header no-border no-lines>
+    <ion-navbar></ion-navbar>
+</ion-header>
+
+<ion-content>
+    <h1 margin-left margin-bottom>{{ 'FAQ' | translate}}</h1>
+    <ion-list no-padding class="accordion-list">
+        <div *ngFor="let item of faqs; let i = index">
+          <ion-item mode="ios" (click)="toggleSection(i)" [ngClass]="{'active':item.open, 'section': item.open}">
+              {{ item.title }}
+              <ion-icon name="add" item-end></ion-icon>
+          </ion-item>
+          <div padding margin-left class="sub-accordion" *ngIf="item.answer && item.open">
+            {{item.answer}}
+          </div>
+        </div>
+    </ion-list>
+</ion-content>

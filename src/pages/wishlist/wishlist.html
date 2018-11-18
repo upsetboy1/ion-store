@@ -1,0 +1,45 @@
+<ion-content padding-top>
+	<div class="subtitle" *ngIf="products.length > 0">
+		<h1 margin-top margin-horizontal>{{ 'WISHLIST' | translate}}</h1>		
+		<p no-margin margin-horizontal>{{ 'WISH_DESC' | translate: {value: products.length} }}</p>
+	</div>
+	<ion-grid class="empty" *ngIf="products.length == 0">
+		<ion-row align-items-center>
+			<ion-col align-self-center text-center>
+				<ion-icon name="heart-outline" color="secondary"></ion-icon>
+				<h4 margin-bottom>{{ 'EMPTY' | translate}}</h4>
+				<button color="secondary" ion-button outline tappable (click)="goHome()">{{ 'START_SHOPPING' | translate}}</button>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+	<ion-row padding-left padding-right class="product-grid">
+		<ion-col col-6 class="product-item" *ngFor="let x of products">
+			<div tappable (click)="goTo('ProductPage', x)">
+				<div class="img" [ngStyle]="{'background-image': 'url(' + x.images[0].src +')'}">
+					<ion-badge *ngIf="x.on_sale">{{x | discount}}</ion-badge>
+				</div>
+				<h5 [innerHTML]="x.name"></h5>
+				<div class="price">
+					<span class="disc" *ngIf="x.on_sale">{{x.regular_price | money}}</span> 
+					{{x.price | money}}
+				</div>
+				<ion-row no-padding class="reviews" *ngIf="x.rating_count">
+					<ion-col col-auto no-padding>
+						<ion-rating item-start *ngIf="x.average_rating"
+							[numStars]="5"
+							[readOnly]="true"
+							[value]="x.average_rating">
+						</ion-rating>
+						<span *ngIf="x.rating_count">{{x.rating_count}}</span>
+					</ion-col>
+				</ion-row>
+			</div>
+			<ion-row class="remove">
+				<ion-col col-9><button tappable (click)="addToCart(x)" ion-button small block outline>{{ 'TO_CART' | translate}}</button></ion-col>
+				<ion-col col-3 text-center><button tappable (click)="removeFromWish(x)" no-padding ion-button icon-only clear><ion-icon no-padding name="trash"></ion-icon></button></ion-col>
+			</ion-row>
+		</ion-col>
+	</ion-row>
+	
+</ion-content>
+		

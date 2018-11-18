@@ -1,0 +1,7 @@
+<ion-tabs [selectedIndex]="mySelectedIndex">
+  <ion-tab [root]="tab1Root" tabTitle="{{ 'HOME' | translate }}" tabIcon="home"></ion-tab>
+  <ion-tab [root]="tab3Root" tabTitle="{{ 'WISHLIST' | translate }}" tabIcon="heart" [tabBadge]="wish.total"></ion-tab>
+  <ion-tab [root]="tab2Root" tabTitle="{{ 'CART' | translate }}" tabIcon="basket" [tabBadge]="cart.totalQty"></ion-tab>
+  <ion-tab [root]="tab4Root" tabTitle="{{ 'ORDERS' | translate }}" tabIcon="list-box"></ion-tab>
+  <ion-tab [root]="tab5Root" tabTitle="{{ 'ACCOUNT' | translate }}" tabIcon="contact"></ion-tab>
+</ion-tabs>

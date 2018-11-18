@@ -1,0 +1,188 @@
+<ion-header>
+    <ion-navbar no-border-bottom>
+        <ion-segment [(ngModel)]="checkout" padding-left padding-right>
+          <ion-segment-button value="shipping">
+            {{ 'SHIPPING' | translate}}
+          </ion-segment-button>
+          <ion-segment-button value="payment" [disabled]="shipping_lines.length==0"> 
+            {{ 'PAYMENT' | translate}}
+          </ion-segment-button>
+        </ion-segment>
+        <ion-buttons end>
+          <button ion-button icon-only tappable (click)="viewCart()">
+            <ion-icon name="basket"></ion-icon>
+          </button>
+        </ion-buttons>
+   </ion-navbar>
+ </ion-header>
+
+<ion-content padding-top>
+  <div [ngSwitch]="checkout">
+    <div *ngSwitchCase="'shipping'">
+      <ion-list margin-bottom>
+        <div padding-horizontal>
+          <h3>{{ 'BILLING_ADDRESS' | translate}}</h3>
+          <ion-note padding-bottom>{{ 'BILLING_DESC' | translate}}</ion-note>
+        </div>
+        <ion-item no-lines *ngIf="billing">
+            <p>{{billing.first_name}} • {{billing.phone}}</p>
+            <p>{{billing.address_1}}</p>
+            <p>{{billing.city}}, {{billing.state}}, {{billing.postcode}}</p>
+            <p>{{billing.country}}</p>
+        </ion-item>
+        <div padding-horizontal>
+          <button ion-button outline block icon-start *ngIf="!billing" tappable (click)="addAddress(3)">
+              {{ 'ADD' | translate}} {{ 'NEW_ADDRESS' | translate}}
+          </button>
+          <button ion-button outline block icon-start *ngIf="billing" tappable (click)="selectAddress(3)">
+              {{ 'SELECT' | translate}} {{ 'OTHER_ADDRESS' | translate}}
+          </button>
+        </div>
+      </ion-list>
+
+      <ion-list margin-top padding-top >
+        <div padding-horizontal>
+          <h3>{{ 'SHIPPING_ADDRESS' | translate}}</h3>
+          <ion-note padding-bottom>{{ 'SHIPPING_DESC' | translate}}</ion-note>
+        </div>
+        <ion-item no-lines *ngIf="shipping">
+            <p>{{shipping.first_name}} • {{shipping.phone}}</p>
+            <p>{{shipping.address_1}}</p>
+            <p>{{shipping.city}}, {{shipping.state}}, {{shipping.postcode}}</p>
+            <p>{{shipping.country}}</p>
+        </ion-item>
+        <div padding-horizontal>
+          <button ion-button outline block icon-start *ngIf="!shipping" tappable (click)="addAddress(4)">
+              {{ 'ADD' | translate}} {{ 'NEW_ADDRESS' | translate}}
+          </button>
+          <button ion-button outline block icon-start *ngIf="shipping" tappable (click)="selectAddress(4)">
+              {{ 'SELECT' | translate}} {{ 'OTHER_ADDRESS' | translate}}
+          </button>
+        </div>
+      </ion-list>
+
+      <ion-list no-margin margin-top padding-top>
+        <div padding-horizontal>
+          <h3>{{ 'SHIPPING_METHOD' | translate}}</h3>
+          <ion-note>{{ 'SHIPPING_METHOD_DESC' | translate}}</ion-note>
+        </div>
+      </ion-list>
+      <ion-list radio-group no-margin margin-vertical (ionChange)="setShipping($event)">
+        <ng-container *ngFor="let x of shipping_method">
+          <ion-item mode="ios" *ngIf="x.enabled">
+            <ion-label>{{x.title}} <span *ngIf="x.settings.cost">({{x.settings.cost.value | money}})</span></ion-label>
+            <ion-radio mode="ios" [value]="x | json"></ion-radio>
+          </ion-item>
+        </ng-container>
+      </ion-list>
+
+      <div padding>
+        <button ion-button block icon-start tappable (click)="next()" [disabled]="shipping_lines.length == 0">
+            {{ 'NEXT' | translate}}
+        </button>
+      </div>
+    </div>
+
+    <div *ngSwitchCase="'payment'">
+      <ion-list margin-bottom>
+        <div padding-horizontal>
+          <h3>{{ 'PAYMENT_METHOD' | translate}}</h3>
+          <ion-note>{{ 'PAYMENT_METHOD_DESC' | translate}}</ion-note>
+        </div>
+      </ion-list>
+      <ion-list radio-group no-margin margin-top (ionChange)="setPayment($event)">
+        <ng-container *ngFor="let x of payments; let i = index">
+          <ion-item mode="ios" *ngIf="x.enabled" [ngClass]="{'section-active': x.open, 'section': !x.open}">
+            <ion-label>
+              {{x.title}} 
+              <img *ngFor="let x of img[x.id]" [src]="x" width="25" />
+            </ion-label>
+            <ion-radio mode="ios" [value]="x | json"></ion-radio>
+          </ion-item>
+          <ion-list class="accord" no-lines padding no-margin *ngIf="x.open && x.description" [ngClass]="{'section-active': x.open, 'section': !x.open}">
+              <ion-item [innerHTML]="x.description" no-padding></ion-item>
+              <ion-grid class="stripe-form" *ngIf="x.id == 'stripe'">
+                <ion-row>
+                  <ion-col>
+                    <ion-item no-padding>
+                        <ion-label floating>Card No</ion-label>
+                        <ion-input [(ngModel)]="stripe.no" [class.invalid]="!stripe.no" type="number" min="16" inputmode="numeric" pattern="[0-9]*"></ion-input>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <ion-item no-padding> 
+                        <ion-label floating>Month</ion-label>
+                        <ion-select [(ngModel)]="stripe.month" [class.invalid]="!stripe.month">
+                            <ion-option *ngFor="let x of months; let i = index" [value]="i+1">{{x}}</ion-option>
+                        </ion-select>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col>
+                    <ion-item no-padding>
+                        <ion-label floating>Year</ion-label>
+                        <ion-select [(ngModel)]="stripe.year" [class.invalid]="!stripe.year">
+                            <ion-option *ngFor="let x of years; let i = index" [value]="x">{{x}}</ion-option>
+                        </ion-select>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col>
+                    <ion-item no-padding>
+                        <ion-label floating>CVC</ion-label>
+                        <ion-input [(ngModel)]="stripe.cvc" type="number" min="3" [class.invalid]="!stripe.cvc" type="number" min="3" inputmode="numeric" pattern="[0-9]*"></ion-input>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+          </ion-list>
+        </ng-container>
+      </ion-list>
+
+      <ion-list no-margin margin-top padding-top>
+        <div padding-horizontal>
+          <h3>{{ 'REVIEW_PURCHASE' | translate}}</h3>
+          <ion-note>{{ 'REVIEW_DESC' | translate}}</ion-note>
+        </div>
+      </ion-list>
+      <ion-list no-margin margin-top *ngIf="cart.all.length > 0">
+        <ion-item *ngFor="let x of cart.all">
+          <ion-thumbnail item-start>
+            <div class="img" [ngStyle]="{'background-image': 'url(' + x.images[0].src +')'}"></div>
+          </ion-thumbnail>
+          <h3 [innerHTML]="x.name"></h3>
+          <p>
+            <span class="disc" *ngIf="x.on_sale">{{x.regular_price | money}} •</span> 
+            <span class="price">{{x.price | money}}</span>
+            <ng-container *ngIf="x.attributes.length > 0"><span *ngFor="let y of x.attributes">• <i>{{y.option || y.options[0]}}</i>&nbsp;</span></ng-container>
+            <span>• {{x.quantity}}x</span>
+          </p>
+        </ion-item>
+      </ion-list>
+
+      <ion-list no-margin margin-top class="total">
+        <ion-item>
+          {{ 'SUBTOTAL' | translate}} ({{cart.totalQtyDetail}} items)
+          <span item-end>{{cart.total | money}}</span>
+        </ion-item>
+        <ion-item *ngIf="shipping_lines[0]">
+          {{ 'SHIPPING' | translate}} ({{shipping_lines[0].method_title}}) 
+          <span item-end>{{shipping_lines[0].total | money}}</span>
+        </ion-item>
+        <ion-item>
+          Total <span item-end>{{total | money}}</span>
+        </ion-item>
+      </ion-list>
+
+      <div padding>
+        <button ion-button block icon-start tappable (click)="confirm()" [disabled]="!order.payment_method || ((order.payment_method == 'stripe') && (!stripe.no || !stripe.month || !stripe.year || !stripe.cvc))">
+            {{ 'BUY_NOW' | translate}} {{total | money}}
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  
+
+</ion-content>

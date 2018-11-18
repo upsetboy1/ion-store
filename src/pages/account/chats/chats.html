@@ -1,0 +1,40 @@
+<ion-header no-border no-lines>
+	<ion-navbar></ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <h1 margin-left margin-bottom>Chats</h1>
+    <ion-list-header margin-left no-padding>Today</ion-list-header>
+    <ion-item *ngFor="let chat of chats" (click)="goTo(chat)">
+      <ion-avatar item-start>
+        <img [src]="chat.imageUrl">
+      </ion-avatar>
+      <h3>{{chat.title}}</h3>
+      <p>{{chat.lastMessage}}</p>
+      <ion-note item-end>{{chat.timestamp | moment:"hh:mm a" | lowercase}}</ion-note>
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-list-header margin-left no-padding>Yesterday</ion-list-header>
+    <ion-item *ngFor="let chat of chats" (click)="goTo(chat)">
+      <ion-avatar item-start>
+        <img [src]="chat.imageUrl">
+      </ion-avatar>
+      <h3>{{chat.title}}</h3>
+      <p>{{chat.lastMessage}}</p>
+      <ion-note item-end>{{chat.timestamp | moment:"hh:mm a" | lowercase}}</ion-note>
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-list-header margin-left no-padding>Las Week</ion-list-header>
+    <ion-item *ngFor="let chat of chats" (click)="goTo(chat)">
+      <ion-avatar item-start>
+        <img [src]="chat.imageUrl">
+      </ion-avatar>
+      <h3>{{chat.title}}</h3>
+      <p>{{chat.lastMessage}}</p>
+      <ion-note item-end>{{chat.timestamp | moment:"hh:mm a" | lowercase}}</ion-note>
+    </ion-item>
+  </ion-list>
+</ion-content>

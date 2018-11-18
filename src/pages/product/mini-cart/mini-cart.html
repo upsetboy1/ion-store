@@ -1,0 +1,47 @@
+<ion-header>
+    <ion-navbar color="light" no-padding no-margin>
+      <ion-list-header>
+        {{'CART' | translate}}
+        <!-- <ion-icon small (click)="dismiss()" name="close" item-end></ion-icon> -->
+        <button item-end no-margin margin-vertical clear ion-button small color="primary" (click)="dismiss()">{{'CLOSE' | translate}}</button>
+      </ion-list-header>
+    </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-list no-padding>
+      <ion-grid class="empty" *ngIf="cart.total == 0">
+        <ion-row align-items-center>
+          <ion-col align-self-center text-center>
+            <ion-icon name="basket" color="secondary"></ion-icon>
+            <h4 margin-bottom>{{ 'EMPTY' | translate}}</h4>
+            <button color="secondary" ion-button outline tappable (click)="dismiss()">{{ 'START_SHOPPING' | translate}}</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-item *ngFor="let x of cart.all" class="product-item" no-padding>
+          <ion-thumbnail item-start>
+            <img [src]="x.images[0].src">
+          </ion-thumbnail>
+          <h5 [innerHTML]="x.name"></h5>
+          <p>
+            <span class="disc" *ngIf="x.on_sale">{{x.regular_price | money}}</span> 
+            <span class="price">{{x.price | money}}</span>
+            <ng-container *ngIf="x.attributes.length > 0"><span *ngFor="let y of x.attributes">• <i>{{y.option || y.options[0]}}</i>&nbsp;</span> </ng-container>
+            <span>• {{x.quantity}}x</span>
+          </p>
+      </ion-item>
+  </ion-list>
+</ion-content>
+<ion-footer no-padding padding-bottom *ngIf="cart.total > 0">
+  <ion-list no-padding no-margin>
+    <ion-item no-padding>
+      <h5><b>Total</b></h5>
+      <ion-badge item-end color="secondary">{{cart.total | money}}</ion-badge>
+    </ion-item>
+  </ion-list>
+  <button *ngIf="!isCheckout" ion-button block small (click)="goCheckout()">{{'CHECKOUT' | translate}}</button>
+  <ion-list no-margin>
+    <button color="secondary" ion-button small block (click)="dismiss()">{{'CONTINUE' | translate}}</button>
+  </ion-list>
+  </ion-footer>
+  

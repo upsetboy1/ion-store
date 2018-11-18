@@ -1,0 +1,67 @@
+<ion-header>
+    
+   <ion-toolbar no-padding>
+      <ion-segment [(ngModel)]="status">
+        <ion-segment-button value="paid">
+          {{ 'PAID' | translate}}
+        </ion-segment-button>
+        <ion-segment-button value="unpaid">
+          {{ 'UNPAID' | translate}}
+        </ion-segment-button>
+      </ion-segment>
+   </ion-toolbar>
+</ion-header>
+
+<ion-content padding-top>
+  <ion-refresher (ionRefresh)="doRefresh('', $event)" (ionPull)="doPulling($event)">
+    <ion-refresher-content
+    pullingIcon="refresh-circle"
+    refreshingSpinner="circles"
+    pullingText="Pull to refresh..."
+    refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-grid class="empty" *ngIf="!user.all">
+    <ion-row align-items-center>
+      <ion-col align-self-center text-center>
+        <ion-icon name="contact" color="secondary"></ion-icon>
+        <h4 margin-bottom>{{ 'LOGIN_DESC' | translate}}</h4>
+        <button color="secondary" ion-button outline tappable (click)="login()">{{ 'LOGIN/REGISTER' | translate}}</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div [ngSwitch]="status">
+    <ion-list *ngSwitchCase="'paid'">
+      <ion-grid class="empty" *ngIf="orders.paid.length == 0 && user.all">
+        <ion-row align-items-center>
+          <ion-col align-self-center text-center>
+            <ion-icon name="list" color="secondary"></ion-icon>
+            <h4 margin-bottom>{{ 'ORDER_EMPTY' | translate}}</h4>
+            <button  color="secondary" ion-button outline tappable (click)="goHome()">{{ 'START_SHOPPING' | translate}}</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <button *ngFor="let x of orders.paid" ion-item tappable (click)="goTo(x)">
+        <h3>{{x.date_created | date:'short'}}</h3>
+        <p>#{{x.id}} • {{x.total | money}}</p>
+        <ion-badge item-end>{{x.status}}</ion-badge>
+      </button>
+    </ion-list>
+    <ion-list *ngSwitchCase="'unpaid'">
+      <ion-grid class="empty" *ngIf="orders.unpaid.length == 0 && user.all">
+        <ion-row align-items-center>
+          <ion-col align-self-center text-center>
+            <ion-icon name="list" color="secondary"></ion-icon>
+            <h4 margin-bottom>{{ 'ORDER_EMPTY' | translate}}</h4>
+            <button color="secondary" ion-button outline tappable (click)="goHome()">{{ 'START_SHOPPING' | translate}}</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <button *ngFor="let x of orders.unpaid" ion-item tappable (click)="goTo(x)">
+        <h3>{{x.date_created | date:'short'}}</h3>
+        <p>#{{x.id}} • {{x.total | money}}</p>
+        <ion-badge item-end>{{x.status}}</ion-badge>
+      </button>
+    </ion-list>
+  </div>
+</ion-content>

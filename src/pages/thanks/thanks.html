@@ -1,0 +1,11 @@
+<ion-content padding fullscreen text-center style="padding: 15% 0;">
+    <h1>{{'THANKS' | translate}}</h1>
+    <h6>{{'FOR_THE_ORDER' | translate}}</h6>
+    <p>{{'YOUR_ID' | translate}}: #{{data.id}}</p>
+    <div padding-vertical>
+        <img class="img" src="assets/img/miscellaneous/truck.jpg">
+        <!-- <ion-icon name="fa-truck"></ion-icon> -->
+    </div>
+    <p>{{'PROCESS_ORDER' | translate}}</p>
+    <button margin-top ion-button block tappable (click)="goHome()">{{'CONTINUE' | translate}}</button>
+</ion-content>

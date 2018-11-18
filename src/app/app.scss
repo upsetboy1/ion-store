@@ -1,0 +1,510 @@
+// http://ionicframework.com/docs/theming/
+
+
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+
+/* iPhone X */
+// .platform-ios.platform-cordova:not(.fullscreen) .bar-header:not(.bar-subheader) {
+// 	height: calc(44px + constant(safe-area-inset-top));
+// }
+
+
+// .platform-ios.platform-cordova:not(.fullscreen) .bar-header:not(.bar-subheader) > * {
+// 	margin-top: constant(safe-area-inset-top);
+// }
+
+// div.tab-nav.tabs {
+// 	height: calc(49px + constant(safe-area-inset-bottom));
+// }
+
+// ion-content.padding.scroll-content.ionic-scroll.has-header.has-tabs {
+// 	top: calc(64px + constant(safe-area-inset-top));
+// }
+/* END iPhone X */
+
+h1, h2, h3, h4, h5, h6{
+	margin: 0;
+	padding: 0;
+}
+
+.tabs .tabbar{
+	background: white !important;
+}
+.tabs-md .tab-button-text{
+	font-size: 8px;
+}
+
+h1, h3, h4{
+	color: color($colors, dark);
+	font-weight: 600;
+}
+.refresher-pulling-text, .refresher-refreshing-text{
+	color: color($colors, dark);
+	font-size: 1.2rem;
+}
+.has-refresher > .scroll-content{
+	border-top: none !important;
+}
+.refresher-pulling-icon{
+	color: color($colors, secondary);
+}
+.tab-button-text{
+	font-size: 8px;
+	text-transform: uppercase;
+}
+.subtitle{
+	padding-bottom: 20px;
+	p{ color: #484848; margin-top: 8px; }
+}
+.toolbar-title{
+	font-weight: 500;
+}
+.toolbar-background{
+	background: white;
+}
+.transparent-header .toolbar-background, .transparent-header ion-header, .transparent-header ion-navbar {
+	background: 0 0!important;
+	box-shadow: none !important;
+}
+.note{
+    font-size: 1.4rem;
+}
+.item-md ion-thumbnail ion-img, .item-md ion-thumbnail img{
+	width: 60px;
+	height: 60px;
+}
+.item-md ion-thumbnail{
+	min-width: 60px;
+	min-height: 60px;
+}
+.item.item-block .item-inner{
+	border-bottom: 1px solid #f2f2f2;
+}
+ion-thumbnail{
+	.img{
+		height: 56px;
+		width: 56px;
+	}
+}
+.swiper-pagination-bullet-active{
+	background: color($colors, primary);
+}
+.swiper-slide{
+	position: relative;
+}
+
+.item.item-block{
+	font-size: 1.6rem;
+	color: color($colors, dark) !important;
+	min-height: 5.4rem;
+}
+.item-ios .radio-ios{
+	margin: 0px;	
+}
+.radio-ios{
+	.radio-icon {
+		width: 25px;
+		height: 25px;
+	}
+	.radio-inner {
+		top: -3px !important;
+		left: -8px !important;
+		position: absolute;
+		border: none !important;
+		transform: none !important;
+		color: color($colors, primary);
+		display: inline-block;
+		font-size: 3rem;
+		font-family: "Ionicons";
+	}
+	.radio-checked .radio-inner:before{
+		content: "\f14a";
+	}
+	.radio-inner:before{
+		content: "\f1f6";
+	}
+}
+.list > .item-block:first-child, .list > .item-block:last-child, .list-ios > .item-wrapper:last-child .item-block{
+	border: none;
+}
+
+.footer .toolbar-background{
+	border-color: #ebebeb;
+}
+.img{
+	background-size: cover;
+	background-position: center;
+	display: block;
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+
+$font-family-base: 'Montserrat', /* 'Khula' */ 'Roboto', 'Noto-Sans', sans-serif !default;
+
+ion-app, html, body, h1, h2, h3, h4, h5, h6, p, button{
+	font-family: 'Montserrat' !important;
+}
+ion-badge{
+	font-weight: 500;
+}
+.price{
+	color: color($colors, primary);
+	font-weight: 600;
+}
+.disc{
+	text-decoration: line-through;
+	color: #aaa;
+}
+
+.fade{
+	background: #333;
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    opacity: 0.7;
+}
+.ago{
+	font-size: 1.2rem;
+	color: #aaa;
+}
+
+.product-slide{
+	.swiper-container{
+		padding-left: 16px;
+	}
+	.item button[item-end]{
+		margin-right: 0px !important;
+	}
+}
+
+ion-scroll.item{
+	width: 100%;
+}
+
+.category-slide{
+	height: 100px;
+	ion-col{
+		padding-right: 10px;
+	}
+	.swiper-container{
+		padding-left: 16px;
+	}
+	.item button[item-end]{
+		margin-right: 0px !important;
+	}
+	// ion-slide .item{
+	// 	height: 80px;
+	// 	margin-bottom: 10px;
+	// 	position: relative;
+	// 	border-radius: 3px;
+	// 	padding: 5px;
+	// 	text-align: left;
+	// }
+	// ion-slide .item h5{
+	// 	position: absolute;
+	// 	bottom: 5px;
+	// 	left: 5px;
+	// 	right: 5px;
+	// 	color: white;
+	// 	font-weight: 500;
+	// 	font-size: 13px;
+	// }
+	.img{
+		width: 120px;
+		height: 80px;
+		border-radius: 3px;
+		margin-bottom: 10px;
+	}
+	.img .fade{
+		border-radius: 3px;
+	}
+	h5{
+		position: absolute;
+		text-transform: uppercase;
+		left: 7px;
+		right: 7px;
+		text-align: left;
+		bottom: 5px;
+		color: white;
+		font-weight: bold;
+
+		font-size: 1.2rem;
+		display: block;
+		display: -webkit-box;
+
+		//height: $font-size*$line-height*$lines-to-show;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: normal;
+		letter-spacing: 1px;
+		text-shadow: 1px 1px 1px color($colors, dark);;
+	}
+}
+
+.accordion-list{
+	h2{
+		font-size: 1.6rem;
+	}
+	ion-icon {
+        transition: all .25s ease-in;
+        transform: rotate(0);
+    }
+
+    .active ion-icon {
+        transform: rotate(90deg);
+    }
+
+    .sub-accordion {
+		color: #484848;
+        transition: 0.9s ease-in-out;
+        &.active {
+        }
+    }
+}
+
+.categories-grid{
+
+	ion-col:first-child{
+		padding-left: 0px; 
+	}
+	ion-col:nth-child(3n){
+		padding-right: 0px; 
+	}
+	ion-col:nth-child(even){
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+
+	ion-col{
+		padding-top: 0px;
+	}
+
+	.img{
+		height: 80px;
+	}
+
+	h5{
+		position: absolute;
+		left: 7px;
+		bottom: 5px;
+		color: white;
+		font-weight: bold;
+
+		font-size: 1.3rem;
+		display: block;
+		display: -webkit-box;
+
+		//height: $font-size*$line-height*$lines-to-show;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: normal;
+		letter-spacing: 1px;
+		text-shadow: 1px 1px 1px #333;
+	}
+}
+
+.product-grid{
+	ion-col:nth-child(odd){
+		padding-left: 0px;
+	}
+
+	ion-col:nth-child(even){
+		padding-right: 0px;
+	}
+
+	> ion-col{
+		padding-top: 0px;
+		margin-bottom: 10px;
+	}
+
+	ion-col > div{
+		position: relative;
+	}
+}
+
+.product-item{
+	$line-height: 1.2;
+	$lines-to-show: 2;
+
+	ion-badge{
+		position: absolute;
+		top: 7px;
+		left: 7px;
+		font-size: 1rem;
+	}
+
+	h5{
+		font-size: 1.2rem;
+		display: block;
+		display: -webkit-box;
+		margin-bottom: 3px;
+
+		//height: $font-size*$line-height*$lines-to-show;
+		-webkit-line-clamp: $lines-to-show;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: normal;
+		font-weight: normal;
+	}
+
+	.img{
+		margin-bottom: 10px;
+		height: 150px;
+	}
+
+	.reviews, .price {
+		margin-top: 4px;
+	}
+
+	.reviews .col{
+		font-size: 0.9rem;
+		color: #959595;
+	}
+	.price{
+		font-size: 1.2rem;
+	}
+}
+
+button.fav {
+	padding: 0 2px !important;
+    position: absolute;
+    right: 5px;
+    top: 1px;
+    color: #FF1654;
+    display: block;
+    z-index: 3;
+    font-size: 1.2rem;
+    height: auto;
+}
+
+.newsearch{
+	padding: 0px 5px 3px;
+	.searchbar{
+		padding: 0;
+		position: relative;
+	}
+
+	.searchbar button{
+		position: absolute;
+		display: block;
+		margin: 0px;
+		line-height: 45px;
+		min-height: 45px;
+		background: transparent;
+		z-index: 1;
+	}
+
+	.searchbar button:last-child{
+		top: 0px;
+		right: 0px;
+		z-index: 3;
+		display: block;
+	}
+
+	.searchbar .searchbar-input{
+		padding: 6px 40px 6px 45px;
+		// border: 0.5px solid #d2cbcb;
+		box-shadow: inherit;
+		line-height: 3.1rem;
+	}
+
+	.searchbar .searchbar-input .text-input{
+		margin: 0;
+	}
+
+	.filter{
+		height: 30px;
+		margin-top: 15px;
+		background: white;
+
+		ion-col{
+			padding-right: 10px;
+		}
+	}
+
+	.filter .button-outline{
+		border-color: #e4e4e4;
+		border-radius: 5px;
+		padding: 0 10px;
+		margin: 0px;
+		text-transform: capitalize;
+		border-width: 0.5px;
+	}
+}
+
+.empty{
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	display: block;
+
+	h4{
+		color: #adadad;
+	}
+
+	ion-row{
+		height: 100%;
+	}
+
+	ion-icon{
+		display: block;
+		font-size: 6em;
+	}
+}
+
+.button[icon-only] ion-icon{
+	line-height: normal !important;
+}
+.button-md{
+	text-transform: capitalize;
+}
+
+ion-modal.inset-modal {
+    background-color: rgba(0,0,0,.5)!important;
+    transition: opacity .25s ease-in-out;
+    padding: 20vh 10vw;
+}
+ion-modal.inset-modal ion-navbar.toolbar{
+	padding-top: 0px !important;
+	min-height: 0px !important;
+}
+
+.has-icon .tab-badge{
+	border: 1px solid #fff;
+}
+
+.alert-title{
+	text-transform: capitalize;
+}
+ion-loading .loading-wrapper{
+	border-radius: 3px !important;
+	padding: 14px 24px !important;
+}
+ion-loading .spinner-dots circle{
+	fill: color($colors, primary) !important;
+}
+ion-spinner{
+	width: 50px;
+	height: 50px;
+}

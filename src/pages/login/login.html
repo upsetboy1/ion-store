@@ -1,0 +1,125 @@
+<ion-content scroll="false">
+    <ion-header no-border no-lines>
+        <ion-navbar color="light" padding>
+          <ion-buttons>
+            <button start color="primary" ion-button icon-only tappable (click)="dismiss()">
+              <ion-icon name="close"></ion-icon>
+            </button>
+          </ion-buttons>
+        </ion-navbar>
+      </ion-header>
+    <ion-slides #slider  direction="vertical" mode="ios">
+      <ion-slide class="swiper-no-swiping" mode="ios">
+        <div padding>
+          <img class="logo" src="assets/img/logo/logo.png" width="100"/>
+          <ion-slides class="text-slider" autoplay="2000" loop="true" mode="ios">
+            <ion-slide>
+              <h3>Ionstore 2</h3>
+              <p>Ionic Premium WooCommerce App for Android and iOS</p>
+            </ion-slide>
+            <ion-slide>
+              <h3>New Features</h3>
+              <p>Using font awesome, google font and Google Cloud Messaging</p>
+            </ion-slide>
+            <ion-slide>
+              <h3>Latest Technology</h3>
+              <p>Works with latest Wordpress, WooCommerce and Ionic Framework</p>
+            </ion-slide>
+          </ion-slides>
+          <ion-row>
+            <ion-col col-6>
+              <button ion-button block color="primary" outline tappable (click)="goToLogin()">{{ 'LOGIN' | translate }}</button>
+            </ion-col>
+            <ion-col col-6>
+              <button ion-button block tappable (click)="goToSignup()">{{ 'CREATE_ACC' | translate }}</button>
+            </ion-col>
+          </ion-row>
+        </div>
+      </ion-slide>
+      <ion-slide class="zoom swiper-no-swiping" mode="ios">
+        <ion-slides #innerSlider class="content-slider" mode="ios"> 
+          <ion-slide class="swiper-no-swiping" mode="ios">
+              <ion-content>
+                <div padding-left padding-right text-left class="body">
+                <h1 padding-horizontal>{{ 'LOGIN' | translate }}</h1>
+                <p padding-horizontal>{{ 'LOGIN_WOO' | translate }}</p>
+                <form [formGroup]="loginForm" (ngSubmit)="submitLogin()">  
+                <ion-item padding-right>
+                  <ion-label floating>{{ 'USERNAME' | translate }}</ion-label>
+                  <ion-input formControlName="user" autocomplete="off" type="text" required></ion-input>
+                </ion-item>
+                <ion-item padding-right>
+                  <ion-label floating>{{ 'PASSWORD' | translate }}</ion-label>
+                  <ion-input formControlName="pass" autocomplete="off" type="password" required></ion-input>
+                </ion-item>
+                <div padding>
+                  <button [disabled]="!loginForm.valid" ion-button block>{{ 'LOGIN' | translate }}</button>
+                  <button no-padding small type="button" ion-button clear tappable (click)="slideNext()" color="light">{{ 'FORGOT' | translate }}</button>
+                </div>
+                </form>
+                <button small clear text-left margin-top ion-button icon-right clear tappable (click)="goToSignup()">
+                  {{ 'GOSIGNUP' | translate }}
+                  <ion-icon end name="arrow-down"></ion-icon>
+                </button>
+                </div>
+              </ion-content>
+          </ion-slide>
+          <ion-slide class="swiper-no-swiping" mode="ios">
+              <ion-content>
+                <div padding>
+                  <h1 text-left padding-horizontal>{{ 'RESET_PASS' | translate }}</h1>
+                  <p text-left padding-horizontal>{{ 'FORGOT_DESC' | translate }}</p>
+                  <form [formGroup]="resetForm" (ngSubmit)="submitReset()">
+                  <ion-item padding-right>
+                    <ion-label floating>{{ 'EMAIL' | translate }}</ion-label>
+                    <ion-input type="email" formControlName="email" autocomplete="off"></ion-input>
+                  </ion-item>
+                  <div padding>
+                    <button [disabled]="!resetForm.valid" ion-button block tappable>{{ 'RESET_PASS' | translate }}</button>
+                    <button small type="button" ion-button icon-left float-left no-padding clear tappable (click)="slidePrevious()" color="light"><ion-icon name="arrow-back"></ion-icon> {{ 'GOBACK' | translate }}</button>
+                  </div>
+                  </form>
+                </div>
+              </ion-content>
+          </ion-slide>
+        </ion-slides>
+      </ion-slide>
+      <ion-slide class="zoom swiper-no-swiping" mode="ios">
+        <ion-content>
+          <div padding-left padding-right text-left>
+            <button small type="button" text-left margin-bottom ion-button icon-right clear tappable (click)="goToLogin()">
+                {{ 'GOLOGIN' | translate }}
+              <ion-icon end name="arrow-up"></ion-icon>
+            </button>
+            <h1 padding-horizontal>{{ 'CREATE_ACC' | translate }}</h1>
+            <!-- <p padding-horizontal>Lets join us to get tons of features.</p> -->
+            <form [formGroup]="signupForm" (ngSubmit)="submitSignup()" novalidate>  
+              <ion-item padding-right>
+                <ion-label floating>{{ 'NAME' | translate }}</ion-label>
+                <ion-input formControlName="name" autocomplete="off" type="text" required></ion-input>
+              </ion-item>
+              <ion-item padding-right>
+                <ion-label floating>{{ 'USERNAME' | translate }}</ion-label>
+                <ion-input formControlName="user" autocomplete="off" type="text" required></ion-input>
+              </ion-item>
+              <ion-item padding-right>
+                <ion-label floating>{{ 'EMAIL' | translate }}</ion-label>
+                <ion-input formControlName="email" autocomplete="off" type="email" required></ion-input>
+              </ion-item>
+              <ion-item padding-right>
+                <ion-label floating>{{ 'PASSWORD' | translate }}</ion-label>
+                <ion-input formControlName="pass" autocomplete="off" type="password" required></ion-input>
+              </ion-item>
+              <ion-item padding-right>
+                <ion-label floating>{{ 'CONF_PASSWORD' | translate }}</ion-label>
+                <ion-input formControlName="pass2" autocomplete="off" type="password" required></ion-input>
+              </ion-item>
+              <div padding>
+                <button ion-button block [disabled]="!signupForm.valid || (signupForm.controls['pass'].value != signupForm.controls['pass2'].value)">{{ 'SIGNUP' | translate }}</button>
+              </div>
+            </form>
+          </div>
+        </ion-content>
+      </ion-slide>
+    </ion-slides>
+  </ion-content>
